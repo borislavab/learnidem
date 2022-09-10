@@ -14,11 +14,11 @@ This example showcases how to create, combine and reference multiple [Idem Azure
  <li><p><b>Virtual Machine</b></p></li>
  </ul>
 <br>
-At the end we will have created an Azure Virtual Machine ( which includes attributes such as SSH Key authentication and Cloud-Init ).
+At the end we will have created an Azure Virtual Machine (which includes attributes such as SSH Key authentication and Cloud-Init).
 
 <b style="color:blue;">Important</b> You can follow this example with two different approaches:<br>
 1) Add all the resources and wait until the end to execute the state - Default
-    - You will have to provide manually the resources' ID to cross-references dependencies, which it is simple and explained below.
+    - You will have to manually provide the resources' IDs to cross-reference dependencies, which is simple and will be explained below.
     - When you execute the state, you must include the [reconciler=basic](/How-to-use-Idem/States/reconciler-flag/) flag (as indicated at the step).
     <br>
 
@@ -124,7 +124,7 @@ moff-idem-sg-1:
             direction: "Inbound"
 ```
 
-Now, in the case of <b>Network Interfaces</b>, we need to reference our <b>Resource Group</b> but for the <b>Security Groups</b>, <b>Public IP</b> & <b>Subnet</b>, the "ID" and Azure Resource URL is needed, however you can see the Azure Resource URL follows a very well defined structure:
+Now, in the case of <b>Network Interfaces</b>, we need to reference our <b>Resource Group</b> but for the <b>Security Groups</b>, <b>Public IP</b> & <b>Subnet</b>, the ID and Azure Resource URL is needed. However, you can see that the Azure Resource URL follows a very well defined structure:
 
 ```shell
  /subscriptions/<your Azure Subscription ID>/<resource group>/<name of the resource group>/providers/<Microsoft Provider Type>/<name of the resource>
@@ -135,7 +135,7 @@ Example for <b>Public IP</b>:
 ```shell
 /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-rg-01/providers/Microsoft.Network/publicIPAddresses/moff-idem-pub-ip
 ```
-You can learn more of Azure Resource URL in [Azure API Doc](https://docs.microsoft.com/en-us/rest/api/azure/).
+You can learn more of Azure Resource URLs in [Azure API Doc](https://docs.microsoft.com/en-us/rest/api/azure/).
 
 # Network Interfaces
 ```yaml
@@ -160,7 +160,7 @@ moff-idem-nic-01:
                 id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-rg-01/providers/Microsoft.Network/virtualNetworks/vNet1-Idem/subnets/moff-idem-subnet-1
 ```
 
-At this point we can add our <b>Virtual Machine</b>, in the case only the <b>Network Interfaces</b> ID is needed, following same logic as before
+At this point we can add our <b>Virtual Machine</b> - in this case only the <b>Network Interfaces</b> ID is needed, following the same logic as before.
 
 # Create VM
 ```yaml
@@ -219,10 +219,10 @@ Development-idem-015:
         requestedby: hernandezf@vmware.com
 ```
 
-Save your file and we are ready for deployment, please note that all the resources have the [Idem Present Directive](/Getting-Started/Basic-Commands/) and that we must include the [reconcilier flag](/How-to-use-Idem/States/reconciler-flag/), so [Idem](/) can loop for all the dependencies resources to be created.
+Save your file and we are ready for deployment, please note that all the resources have the [Idem Present Directive](/Getting-Started/Basic-Commands/) and that we must include the [reconciler flag](/How-to-use-Idem/States/reconciler-flag/), so [Idem](/) can loop for all the resource dependencies to be created.
 
 ```shell
 idem state my_resource_group_state.sls --reconciler=basic
 ```
 
-You can then use [Idem describe](/How-to-use-Idem/Describe/) to validate all your resources are created (BTW, it would be a good idea to use your own SSH public Key, this one is fake)
+You can then use [Idem describe](/How-to-use-Idem/Describe/) to validate all your resources are created (BTW, it would be a good idea to use your own SSH public key, this one is fake)
